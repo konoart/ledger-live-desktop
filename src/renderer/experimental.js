@@ -52,6 +52,30 @@ export const experimentalFeatures: Feature[] = [
     valueOn: "bitcoin,bitcoin_testnet,tezos",
     valueOff: "",
   },
+  ...(deltaExperimentalExplorers.length
+    ? [
+        {
+          type: "toggle",
+          name: "EXPERIMENTAL_EXPLORERS",
+          title: <Trans i18nKey="settings.experimental.features.experimentalExplorers.title" />,
+          description: (
+            <Trans i18nKey="settings.experimental.features.experimentalExplorers.description">
+              {deltaExperimentalExplorers
+                .map(
+                  ([currency, config]) =>
+                    (currency.isTestnetFor ? "t" : "") +
+                    currency.ticker +
+                    " " +
+                    config.stable.version +
+                    "->" +
+                    (config.experimental?.version || "?"),
+                )
+                .join(", ")}
+            </Trans>
+          ),
+        },
+      ]
+    : []),
   {
     type: "toggle",
     name: "API_TRONGRID_PROXY",
@@ -96,30 +120,6 @@ export const experimentalFeatures: Feature[] = [
           name: "EXPERIMENTAL_SWAP",
           title: "New SWAP interface ",
           description: "Use the new experimental swap interface",
-        },
-      ]
-    : []),
-  ...(deltaExperimentalExplorers.length
-    ? [
-        {
-          type: "toggle",
-          name: "EXPERIMENTAL_EXPLORERS",
-          title: <Trans i18nKey="settings.experimental.features.experimentalExplorers.title" />,
-          description: (
-            <Trans i18nKey="settings.experimental.features.experimentalExplorers.description">
-              {deltaExperimentalExplorers
-                .map(
-                  ([currency, config]) =>
-                    (currency.isTestnetFor ? "t" : "") +
-                    currency.ticker +
-                    " " +
-                    config.stable.version +
-                    "->" +
-                    (config.experimental?.version || "?"),
-                )
-                .join(", ")}
-            </Trans>
-          ),
         },
       ]
     : []),
